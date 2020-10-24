@@ -16,6 +16,9 @@ GET, POST, DELETE & PUT
 | /         | POS    | /div | divide 2 nums    | x: float y: float | 200 OK  301 Field Missing 302 y is zero |
 
 
+## MongoDB Database
+Holds number of visits on ```localhost:5000/hello```
+
 ## Docker
 
 ### Dockerization
@@ -23,27 +26,9 @@ GET, POST, DELETE & PUT
 1. Change directory to working folder where ```app.py``` resides
     ```cd 02_simple_Restful_API``` 
 
-2. Make .yml file
-    ```touch docker-compose.yml```
-
-3. Make db & web directries
-    ```mkdir db && mkdir web```
-
-4. Change path 
-    ```cd web```
-
-5. Make file
-    ```requirements.txt```
-
-6. Make file
-    ```touch Dockerfile```
-
-7. Change directory to parent
-    ```cd ..```
-
-8. Build directory
+2. Build directory
     ```docker-compose build```
 
-9. Run directory
+3. Run directory
     ```docker-compose up```
 

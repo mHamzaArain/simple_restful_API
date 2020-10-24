@@ -1,14 +1,14 @@
 """Simple API for performing basic mathematical operations.
+-------------------------------------------------------------
 
 API that takes two inputs as JSON and return data after calculation.
 These calculations are just simply +, -, *, /
-"""
 
-# Note: This API work under POST request
+Note: This API work under POST request
 
-"""
 @author Hamza Arain
 @version 0.1v
+
 """
 
 
@@ -16,10 +16,21 @@ These calculations are just simply +, -, *, /
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 
+import os
 
-# App & API creation
-app = Flask(__name__)
-api = Api(app)
+from pymongo import MongoClient
+
+
+class Visit(Resource):
+    """
+    Increament in no. of visitors
+    """
+    def get(self):
+        prev_num = UserNum.find({})[0]['num_of_users']
+        new_num = prev_num + 1
+        UserNum.update({}, {"$set":{"num_of_users":new_num}})
+        return str("Hello user " + str(new_num))
+
 
 class Tool():
     """
@@ -150,17 +161,34 @@ class Divide(Resource):
 # ##################### Run Application #####################
 # ###########################################################
 
+
+# Database connection
+# # "db" is same as written in web Dockerfile
+# # "27017" is default port for MongoDB 
+client = MongoClient("mongodb://db:27017")  
+db = client.aNewDB      # Create database
+UserNum = db["UserNum"] # Create collection
+
+# Make initial value first time
+UserNum.insert({
+    'num_of_users':0
+})
+
+# App & API creation
+app = Flask(__name__)
+api = Api(app)
+
 # API paths
 api.add_resource(Add, "/add")
 api.add_resource(Subtract, "/sub")
 api.add_resource(Multiply, "/mul")
 api.add_resource(Divide, "/div")
+api.add_resource(Visit, "/hello")
 
 # GET route
 @app.route('/')
 def hello_world():        
     return "Hello World!"
-
 
 # Run application
 if __name__=="__main__":
