@@ -7,7 +7,8 @@ These calculations are just simply +, -, *, /
 Note: This API work under POST request
 
 @author Hamza Arain
-@version 0.1v
+@version 0.0.1v
+@date 25 October 2020
 
 """
 
