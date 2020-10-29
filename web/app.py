@@ -22,17 +22,6 @@ import os
 from pymongo import MongoClient
 
 
-class Visit(Resource):
-    """
-    Increament in no. of visitors
-    """
-    def get(self):
-        prev_num = UserNum.find({})[0]['num_of_users']
-        new_num = prev_num + 1
-        UserNum.update({}, {"$set":{"num_of_users":new_num}})
-        return str("Hello user " + str(new_num))
-
-
 class Tool():
     """
     1. Check post data
@@ -91,7 +80,15 @@ class Tool():
 # #######################  API Class ########################
 # ###########################################################    
 
-
+class Visit(Resource):
+    """
+    Increament in no. of visitors
+    """
+    def get(self):
+        prev_num = UserNum.find({})[0]['num_of_users']
+        new_num = prev_num + 1
+        UserNum.update({}, {"$set":{"num_of_users":new_num}})
+        return str("Hello user " + str(new_num))
 
 class Add(Resource):
     """Adding from POST request"""
